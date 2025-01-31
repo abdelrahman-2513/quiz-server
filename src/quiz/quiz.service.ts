@@ -7,12 +7,15 @@ import { CreateQuizDto, UpdateQuizDto } from "./dtos";
 import { UpdateQuestionDto } from "src/question/dtos/update-question.dto";
 import { IQuestion } from "src/question/interfaces/question.interface";
 import { objectIDToString } from "src/common/transformers/objectID-to-string";
+import { IQuiz } from "./interfaces/quiz.interface";
+import { CourseService } from "src/course/course.service";
 
 @Injectable()
 export class QuizService {
     constructor(
         @InjectModel(Quiz.name) private readonly quizModel: Model<Quiz>,
-        private readonly questionService: QuestionService
+        private readonly questionService: QuestionService,
+        private readonly courseService: CourseService
     ) { }
 
     async createQuiz(createQuizDto: CreateQuizDto): Promise<{ quizId: string; questionIds: string[] }> {
@@ -27,11 +30,11 @@ export class QuizService {
     }
 
     async findAll(): Promise<Quiz[]> {
-        return this.quizModel.find().exec();
+        return this.quizModel.find().populate(['questions','course']).exec();
     }
 
-    async findOne(id: string): Promise<Quiz> {
-        const quiz = await this.quizModel.findById(id).populate('questions').exec();
+    async findOne(id: string): Promise<IQuiz> {
+        const quiz = await this.quizModel.findById(id).populate(['questions','course']).exec();
         if (!quiz) {
             throw new NotFoundException('Quiz not found');
         }
@@ -89,5 +92,20 @@ export class QuizService {
         return updatedQuestions.filter((question) => !question._id);
     }
 
+
+    async getStudentQuizzes(studentId: string): Promise<any[]> {
+      return this.quizModel.find({
+        course: { $in: await this.courseService.getCoursesForStudent(studentId) },
+        dueDate: { $gte: new Date() } 
+      }).populate('course').exec();
+    }
+  
+    async getTeacherQuizzes(teacherId: string): Promise<any[]> {
+      return this.quizModel.find({
+        course: { $in: await this.courseService.getCoursesForTeacher(teacherId) }
+      }).populate('course').exec();
+    }
+  
+    
 
 }
