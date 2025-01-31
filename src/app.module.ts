@@ -9,10 +9,11 @@ import { AnnouncementModule } from './announcement/announcement.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CourseModule } from './course/course.module';
+import { getEnv } from './config.helper';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://abdo1234:Abdo-25132001@cluster0.krgi7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/quiz-app'),
+    MongooseModule.forRoot(getEnv("DB_CONNECTION_STRING")),
     UserModule, QuizModule, QuizResultModule, QuestionModule, AnnouncementModule, AuthModule, CourseModule],
   controllers: [AppController],
   providers: [AppService],

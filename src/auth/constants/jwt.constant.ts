@@ -1,3 +1,5 @@
+import { getEnv } from "src/config.helper";
+
 export const JwtConstants = {
-    secret: 'secretKey',
+    secret: getEnv("JWT_SECRET_KEY "),
 };
