@@ -94,7 +94,7 @@ export class QuizService {
 
 
     async getStudentQuizzes(studentId: string): Promise<any[]> {
-      return this.quizModel.find({
+      return this.quizModel.find({ 
         course: { $in: await this.courseService.getCoursesForStudent(studentId) },
         dueDate: { $gte: new Date() } 
       }).populate('course').exec();
