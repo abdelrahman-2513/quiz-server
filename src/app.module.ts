@@ -12,7 +12,7 @@ import { CourseModule } from './course/course.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/quiz'),
+    MongooseModule.forRoot('mongodb+srv://abdo1234:Abdo-25132001@cluster0.krgi7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/quiz-app'),
     UserModule, QuizModule, QuizResultModule, QuestionModule, AnnouncementModule, AuthModule, CourseModule],
   controllers: [AppController],
   providers: [AppService],
