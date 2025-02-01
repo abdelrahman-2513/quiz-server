@@ -20,16 +20,8 @@ export class AnnouncementService {
   }
 
   async findAll(req: Request): Promise<IAnnouncement[]> {
-    const user = req["user"] as ATPayload;
-    if (user.role === "admin" || user.role === "teacher") {
       const announcements = await this.announcementModel.find().populate('user').exec();
-      console.log(announcements);
-      return announcements
-    }
-    const studentId = user.sub;
-    const teachers = await this.courseService.getTeachersForStudent(studentId.toString());
-
-    const announcements = await this.announcementModel.find({ user: { $in: teachers } }).populate('user').exec();
+  
     return announcements
   }
 
