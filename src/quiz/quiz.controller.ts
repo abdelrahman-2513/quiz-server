@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Req, Res } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto, UpdateQuizDto } from './dtos';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 @Controller('quiz')
 export class QuizController {
@@ -14,8 +14,8 @@ export class QuizController {
   }
 
   @Get()
-  async findAll(@Res() res: Response) {
-    const quizzes = await this.quizService.findAll();
+  async findAll(@Res() res: Response,@Req() req:Request) {
+    const quizzes = await this.quizService.findAll(req);
     return res.status(HttpStatus.OK).json({ message: 'Quizzes retrieved successfully', quizzes });
   }
 

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, HydratedDocument, Types } from 'mongoose';
+import { Document, HydratedDocument, SchemaTypes, Types } from 'mongoose';
 
 export type QuizResultDocument = HydratedDocument<QuizResult>;
 
@@ -8,7 +8,7 @@ export class QuizResult {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   user: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'Quiz', required: true })
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Quiz', required: true })
   quiz: Types.ObjectId;
 
   @Prop({ type: [{ questionId: Types.ObjectId, selectedAnswer: String }] })

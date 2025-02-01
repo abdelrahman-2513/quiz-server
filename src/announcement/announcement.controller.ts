@@ -15,8 +15,8 @@ export class AnnouncementController {
   }
 
   @Get()
-  async findAll(@Res() res: Response) {
-    const announcements = await this.announcementService.findAll();
+  async findAll(@Res() res: Response,@Req() req:Request) {
+    const announcements = await this.announcementService.findAll(req);
     return res.status(HttpStatus.OK).json({ message: 'Announcements retrieved successfully', announcements });
   }
 

@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Req, Res } from '@nestjs/common';
 import { CreateQuizResultDto } from './dtos/create-quiz-result.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { QuizResultService } from './quiz-result.service';
 import { UpdateQuizResultDto } from './dtos/update-quiz-result.dto';
 
@@ -9,8 +9,8 @@ export class QuizResultController {
     constructor(private readonly quizResultService: QuizResultService) {}
 
     @Post()
-    async create(@Body() createQuizResultDto: CreateQuizResultDto, @Res() res: Response) {
-      const quizResult = await this.quizResultService.create(createQuizResultDto);
+    async create(@Body() createQuizResultDto: CreateQuizResultDto, @Res() res: Response, @Req() req: Request) {
+      const quizResult = await this.quizResultService.create(createQuizResultDto,req);
       return res.status(HttpStatus.CREATED).json({ message: 'Quiz result created successfully', quizResult });
     }
   

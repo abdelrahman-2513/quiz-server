@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Req, Res } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dtos/create-course.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { UpdateCourseDto } from './dtos/update-course.dto';
 
 @Controller('course')
@@ -15,8 +15,8 @@ export class CourseController {
     }
   
     @Get()
-    async findAll(@Res() res: Response) {
-      const courses = await this.courseService.findAll();
+    async findAll(@Res() res: Response,@Req() req:Request) {
+      const courses = await this.courseService.findAll(req);
       return res.status(HttpStatus.OK).json({ message: 'Courses retrieved successfully', courses });
     }
   

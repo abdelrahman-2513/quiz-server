@@ -12,6 +12,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new GlobalExceptionFilter());
 
+  app.enableCors({ origin: '*' });
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   
   await app.listen(process.env.PORT ?? 3000);
