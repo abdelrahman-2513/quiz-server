@@ -5,4 +5,6 @@ export class CreateAnnouncementDto {
     title: string;
     @IsString()
     content: string;
+
+   
 }

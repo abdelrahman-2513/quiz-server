@@ -37,4 +37,16 @@ export class CourseController {
       const result = await this.courseService.delete(id);
       return res.status(HttpStatus.OK).json(result);
     }
+
+    @Post(':id/add-student/:studentId')
+    async addStudent(@Param('id') courseId: string, @Param('studentId') studentId: string, @Res() res: Response) {
+      const result = await this.courseService.addStudent(courseId, studentId);
+      return res.status(HttpStatus.OK).json(result);
+    }
+
+    @Post(':id/remove-student/:studentId')
+    async removeStudent(@Param('id') courseId: string, @Param('studentId') studentId: string, @Res() res: Response) {
+      const result = await this.courseService.removeStudent(courseId, studentId);
+      return res.status(HttpStatus.OK).json(result);
+    }
 }

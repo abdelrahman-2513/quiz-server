@@ -16,7 +16,7 @@ export class CourseService {
     }
   
     async findAll(): Promise<ICourse[]> {
-      return this.courseModel.find().populate('teacher').populate('students').exec();
+      return this.courseModel.find().populate(['teacher','students']).exec();
     }
   
     async findOne(id: string): Promise<ICourse> {
@@ -43,13 +43,39 @@ export class CourseService {
       return { message: 'Course deleted successfully' };
     }
 
-     async getCoursesForStudent(studentId: string): Promise<Types.ObjectId[]> {
-        const courses = await this.courseModel.find({ students: studentId }).select('_id');
-        return courses.map(course => course._id);
+    async getCoursesForStudent(studentId: string): Promise<Types.ObjectId[]> {
+      const courses = await this.courseModel.find({ students: { $in: [new Types.ObjectId(studentId)] } }).populate('teacher students').exec();
+      if (!courses.length) {
+        return []
       }
+      return courses.map(course => course._id);
+    }
     
        async getCoursesForTeacher(teacherId: string): Promise<Types.ObjectId[]> {
-        const courses = await this.courseModel.find({ teacher: teacherId }).select('_id');
-        return courses.map(course => course._id);
+        const courses = await this.courseModel.find({ teacher: teacherId }).populate('teacher students').exec();
+      if (!courses.length) {
+        return []
+      }
+      return courses.map(course => course._id);
+      }
+
+      async addStudent(courseId: string, studentId: string): Promise<{ message: string }> {
+        const course = await this.courseModel.findById(courseId);
+        if (!course) {
+          throw new NotFoundException('Course not found');
+        }
+        course.students.push( new Types.ObjectId(studentId));
+        await course.save();
+        return { message: 'Student added to course successfully' };
+      }
+
+      async removeStudent(courseId: string, studentId: string): Promise<{ message: string }> {
+        const course = await this.courseModel.findById(courseId);
+        if (!course) {
+          throw new NotFoundException('Course not found');
+        }
+        course.students = course.students.filter(student => student.toString() !== studentId);
+        await course.save();
+        return { message: 'Student removed from course successfully' };
       }
 }

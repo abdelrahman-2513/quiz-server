@@ -2,7 +2,7 @@ import { IsArray, IsString, MinLength } from "class-validator";
 
 export class CreateQuestionDto {
     @IsString()
-    @MinLength(20)
+    @MinLength(10)
     questionText: string;
     
     @IsArray()

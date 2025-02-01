@@ -58,6 +58,7 @@ export class QuestionService {
             try{
 
                 const createdQuestions = await this.questionModel.insertMany(createQuestionsDto);
+                console.log({createdQuestions})
                 return createdQuestions.map(q => q._id.toString());
             }catch(e){
                 throw new InternalServerErrorException("Try Again Later");

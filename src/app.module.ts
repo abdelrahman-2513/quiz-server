@@ -13,7 +13,7 @@ import { getEnv } from './config.helper';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(getEnv("DB_CONNECTION_STRING")),
+    MongooseModule.forRoot(getEnv("DB_CONNECTION_STRING","mongodb+srv://abdo1234:Abdo-25132001@cluster0.krgi7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/quiz-app")),
     UserModule, QuizModule, QuizResultModule, QuestionModule, AnnouncementModule, AuthModule, CourseModule],
   controllers: [AppController],
   providers: [AppService],

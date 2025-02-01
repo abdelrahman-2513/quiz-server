@@ -9,10 +9,7 @@ export class Quiz {
   @Prop({ required: true })
   title: string;
 
-  @Prop({ required: true ,default:EQuizType.EASY ,type:"enum", enum: EQuizType })
-  type:EQuizType
-
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Question' }] })
+  @Prop({type:[ Types.ObjectId], ref: 'Question'  })
   questions: Types.ObjectId[]; 
 
   @Prop({ required: true })
@@ -29,3 +26,8 @@ export class Quiz {
 }
 
 export const QuizSchema = SchemaFactory.createForClass(Quiz);
+
+QuizSchema.pre(/^find/, function (this: any, next) {
+  this.populate('questions');
+  next();
+});

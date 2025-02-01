@@ -3,7 +3,7 @@ import { IsArray, IsOptional, IsString, MinLength } from "class-validator";
 export class UpdateQuestionDto {
     @IsString  ()
     @IsOptional()
-    @MinLength(20) 
+    @MinLength(10) 
     questionText:string;
     @IsArray()
     @IsOptional()

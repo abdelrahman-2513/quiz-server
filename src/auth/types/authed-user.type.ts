@@ -7,14 +7,13 @@ export class LoggedUser implements IUser {
     email: string;
     name: string;
     role: EUserRole;
-    password: string;
+   
 
     constructor(user: IUser) {
       this._id = user._id;
       this.email = user.email;
       this.name = user.name;
       this.role = user.role;
-      this.password = user.password;
 
     }
   }

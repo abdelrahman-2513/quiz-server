@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Req, Res } from '@nestjs/common';
 import { AnnouncementService } from './announcement.service';
 import { CreateAnnouncementDto } from './dtos/create-announcement.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { UpdateAnnouncementDto } from './dtos/update-anouncement.dto';
 
 @Controller('announcement')
@@ -9,8 +9,8 @@ export class AnnouncementController {
     constructor(private readonly announcementService: AnnouncementService) {}
 
   @Post()
-  async create(@Body() createAnnouncementDto: CreateAnnouncementDto, @Res() res: Response) {
-    const announcement = await this.announcementService.create(createAnnouncementDto);
+  async create(@Body() createAnnouncementDto: CreateAnnouncementDto, @Res() res: Response,@Req() req:Request) {
+    const announcement = await this.announcementService.create(createAnnouncementDto,req);
     return res.status(HttpStatus.CREATED).json({ message: 'Announcement created successfully', announcement });
   }
 

@@ -17,11 +17,17 @@ export class UserService {
             const createdUser = new this.userModel(user);
             return await createdUser.save();
         }catch(e){
+            console.log(e);
             throw new InternalServerErrorException("Try Again Later")
         }
     }
 
+    async findAll():Promise<IUser[]>{
+        return await this.userModel.find().exec();
+    }
+
     async findOneByEmail(email:string):Promise<IUser>{
+        console.log(email)
         return await this.userModel.findOne({email}).exec();
     }
 

@@ -8,16 +8,16 @@ export type userDocument = HydratedDocument<User>;
 @Schema({timestamps: true})
 export class User {
     @Prop({ required: true, unique: true })
-    email: string;
+    email?: string;
 
     @Prop({ required: true })
-    name: string;
+    name?: string;
 
-    @Prop({ default: EUserRole.STUDENT ,type:"enum", enum: EUserRole }) 
-    role: EUserRole;
+    @Prop({ default: EUserRole.STUDENT ,type:"string", enum: EUserRole }) 
+    role?: EUserRole;
 
     @Prop({ required: true })
-    password: string; 
+    password?: string; 
 }
 
 

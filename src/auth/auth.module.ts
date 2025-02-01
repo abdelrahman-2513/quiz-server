@@ -17,13 +17,14 @@ import { AuthGuard, RolesGuard } from './guards';
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService, {
-    provide: APP_GUARD,
-    useClass: RolesGuard,
-  },
+  providers: [AuthService, 
   {
     provide: APP_GUARD,
     useClass: AuthGuard,
+  },
+  {
+    provide: APP_GUARD,
+    useClass: RolesGuard,
   },
 ]
 })

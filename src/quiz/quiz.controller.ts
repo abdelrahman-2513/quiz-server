@@ -36,4 +36,15 @@ export class QuizController {
     const result = await this.quizService.delete(id);
     return res.status(HttpStatus.OK).json(result);
   }
+  @Get("student/:studentId")
+  async getStudentQuizzes(@Param('studentId') studentId: string, @Res() res: Response) {
+    const quizzes = await this.quizService.getStudentQuizzes(studentId);
+    return res.status(HttpStatus.OK).json({ message: 'Quizzes retrieved successfully', quizzes });
+  }
+
+  @Get("teacher/:teacherId")
+  async getTeacherQuizzes(@Param('teacherId') teacherId: string, @Res() res: Response) {
+    const quizzes = await this.quizService.getTeacherQuizzes(teacherId);    
+    return res.status(HttpStatus.OK).json({ message: 'Quizzes retrieved successfully', quizzes });
+  }
 }

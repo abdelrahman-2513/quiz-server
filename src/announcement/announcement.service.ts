@@ -5,18 +5,21 @@ import { Model } from 'mongoose';
 import { CreateAnnouncementDto } from './dtos/create-announcement.dto';
 import { IAnnouncement } from './interfaces/announcement.interface';
 import { UpdateAnnouncementDto } from './dtos/update-anouncement.dto';
+import { Request } from 'express';
+import { ATPayload } from 'src/auth/types/access-token-payload.type';
 
 @Injectable()
 export class AnnouncementService {
     constructor(@InjectModel(Announcement.name) private readonly announcementModel: Model<Announcement>) {}
 
-    async create(createAnnouncementDto: CreateAnnouncementDto): Promise<IAnnouncement> {
-      const createdAnnouncement = new this.announcementModel(createAnnouncementDto);
+    async create(createAnnouncementDto: CreateAnnouncementDto,req:Request): Promise<IAnnouncement> {
+      const user = req["user"] as ATPayload;
+      const createdAnnouncement = new this.announcementModel({...createAnnouncementDto,user:user.sub});
       return createdAnnouncement.save();
     }
   
     async findAll(): Promise<IAnnouncement[]> {
-      return this.announcementModel.find().exec();
+      return this.announcementModel.find().populate('user').exec();
     }
   
     async findOne(id: string): Promise<IAnnouncement> {

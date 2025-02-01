@@ -9,6 +9,7 @@ export class IsEmailUnique implements ValidatorConstraintInterface {
   constructor(private readonly userService: UserService) {}
 
   async validate(email: string) {
+    console.log(email);
     const user = await this.userService.findOneByEmail(email);
     return !user;
   }

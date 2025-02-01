@@ -8,7 +8,7 @@ import { IsEmailUnique } from 'src/user/validators/is-email-unique.validator';
 @Module({
   imports:[MongooseModule.forFeature([{name:User.name,schema:userSchema}])],
   controllers: [UserController],
-  providers: [UserService,IsEmailUnique],
+  providers: [IsEmailUnique,UserService,],
   exports:[UserService]
 })
 export class UserModule {}
