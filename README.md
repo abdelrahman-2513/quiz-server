@@ -1,99 +1,121 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 📘 NestJS & MongoDB Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 🚀 Overview
+This is a **NestJS backend** for managing **quizzes, courses, announcements, and users** with MongoDB. It provides CRUD operations, authentication, and role-based access control.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📌 Features
+- **Authentication & Authorization** (JWT-based)
+- **User Roles**: Admin, Teacher, Student
+- **Course Management**: Assign students and teachers to courses
+- **Quiz System**: Create, update, and fetch quizzes
+- **Quiz Results**: Store student quiz scores
+- **Announcements**: Teachers can post announcements for their students
+- **MongoDB Integration** with Mongoose
 
-## Description
+## 🏗️ Tech Stack
+- **NestJS** - Backend framework
+- **MongoDB** - Database
+- **Mongoose** - ODM for MongoDB
+- **JWT (JSON Web Token)** - Authentication
+- **bcrypt** - Password hashing
+- **TypeScript** - Type safety
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
-
-```bash
-$ npm install
+## 📂 Project Structure
+```
+├── src/
+│   ├── auth/           # Authentication module
+│   ├── common/         # Shared utilities & middlewares
+│   ├── course/        # Course management
+│   ├── quiz/        # Quiz management
+│   ├── quiz-result/   # Student quiz scores
+│   ├── announcement/  # Teacher announcements
+│   ├── user/          # User management
+│   ├── main.ts         # App entry point
+│   ├── app.module.ts   # Root module
+├── .env                # Environment variables
+├── package.json        # Dependencies & scripts
+├── tsconfig.json       # TypeScript configuration
+└── README.md           # Documentation
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+## 🔧 Installation & Setup
+### 1️⃣ Clone the Repository
+```sh
+git clone https://github.com/abdelrahman-2513/quiz-server.git
+cd quiz-server
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+### 2️⃣ Install Dependencies
+```sh
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
+### 3️⃣ Configure Environment Variables
+Create a `.env` file and add:
+```
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/nestjs
+JWT_SECRET=your_secret_key
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 4️⃣ Run the Server
+#### Development Mode
+```sh
+npm run start:dev
+```
+#### Production Mode
+```sh
+npm run build
+npm run start:prod
+```
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## 📌 API Endpoints
+### **Authentication**
+- `POST /auth/signin` - Authenticate and get a JWT token
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### **Users**
+- `GET /user` - Get all users (admin only)
+- `GET /user/:id` - Get user by ID
 
-## Support
+### **Courses**
+- `POST /course` - Create a new course (admin only)
+- `GET /course` - Get all courses
+- `GET /course/:id` - Get a specific course
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### **Quizzes**
+- `POST /quiz` - Create a quiz (teacher only)
+- `GET /quiz/student/:id` - Get quizzes for a student with scores
 
-## Stay in touch
+### **Announcements**
+- `POST /announcement` - Create an announcement (teacher only)
+- `GET /announcement` - Get announcements for students
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## 🛠️ Available Scripts
+```sh
+npm run start        # Start the app
+npm run start:dev    # Start in development mode
+npm run build        # Build the app
+npm run start:prod   # Start in production mode
+npm run lint         # Lint the code
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```
+
+---
+
+## 📝 Contributing
+1. Fork the repository
+2. Create a new branch (`feature/new-feature`)
+3. Commit your changes
+4. Push to your branch
+5. Create a pull request
+
+
+
